@@ -32,6 +32,10 @@ window.addEventListener('load', () => {
         const task_actions_el = document.createElement("div");
         task_actions_el.classList.add("actions");
 
+        const task_done_el = document.createElement("button");
+        task_done_el.classList.add("done");
+        task_done_el.innerHTML = "Done";
+
         const task_edit_el = document.createElement("button");
         task_edit_el.classList.add("edit");
         task_edit_el.innerHTML = "Edit";
@@ -40,6 +44,7 @@ window.addEventListener('load', () => {
         task_delete_el.classList.add("delete");
         task_delete_el.innerHTML = "Delete";
 
+        task_actions_el.appendChild(task_done_el);
         task_actions_el.appendChild(task_edit_el);
         task_actions_el.appendChild(task_delete_el);
 
@@ -49,9 +54,27 @@ window.addEventListener('load', () => {
 
         input.value = "";
 
+        // task done
+        task_done_el.addEventListener('click', () => {
+            // console.log('done')
+            if (task_done_el.innerText.toLowerCase() === "done") {
+                task_input_el.removeAttribute("readonly");
+                task_input_el.classList.add("strikethrough");
+            } else if (task_done_el.innerText.toLowerCase() === "undo") {
+                task_input_el.removeAttribute("readonly");
+                task_input_el.classList.remove("strikethrough");
+                task_done_el.innerText = "Done";
+            }
+
+            if (task_input_el.classList.contains("strikethrough")) {
+                task_input_el.setAttribute("readonly", "readonly");
+                task_done_el.innerText = "Undo";
+            }
+        })
+
         // edit task
         task_edit_el.addEventListener('click', () => {
-            if (task_edit_el.innerText.toLowerCase() === "edit") {
+            if (task_edit_el.innerText.toLowerCase() === "edit" && task_done_el.innerText.toLowerCase() === "done") {
                 task_input_el.removeAttribute("readonly");
                 task_input_el.focus({ focusVisible: true });
                 task_edit_el.innerText = "Save";
