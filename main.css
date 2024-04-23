@@ -145,6 +145,14 @@ main {
     opacity: 0.6;
 }
 
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.task .actions .done {
+    color: blue;
+}
+
 .task .actions .edit {
     background-image: linear-gradient(to right, var(--pink), var(--purple));
     -webkit-background-clip: text;
